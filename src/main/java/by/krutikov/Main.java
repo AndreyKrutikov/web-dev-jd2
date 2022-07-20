@@ -7,9 +7,10 @@ public class Main implements Runnable{
     static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
-
         new Thread(new Main()).start();
+        logger.info("Main1 thread started");
         new Thread(new Main2()).start();
+        logger.info("Main2 thread started");
     }
     @Override
     public void run() {
