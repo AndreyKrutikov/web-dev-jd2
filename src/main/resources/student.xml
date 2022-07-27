@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="student.xsd">
+    <Student id="1">
+        <name>petya</name>
+        <address>minsk</address>
+        <age>18</age>
+        <phone>123456</phone>
+        <faculty>abc</faculty>
+    </Student>
+    <Student id="2">
+        <name>petya</name>
+        <address>minsk</address>
+        <age>18</age>
+        <phone>123456</phone>
+        <faculty>abc</faculty>
+    </Student>
+    <Student>
+        <name>petya</name>
+        <address>minsk</address>
+        <age>18</age>
+        <phone>123456</phone>
+        <faculty>abc</faculty>
+    </Student>
+</Students>
