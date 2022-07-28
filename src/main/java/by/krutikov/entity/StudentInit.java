@@ -1,4 +1,7 @@
-package by.krutikov;
+package by.krutikov.entity;
+
+import by.krutikov.entity.Faculty;
+import by.krutikov.entity.Student;
 
 import java.util.List;
 

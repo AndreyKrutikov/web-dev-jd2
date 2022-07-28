@@ -1,4 +1,4 @@
-package by.krutikov;
+package by.krutikov.entity;
 
 public enum Faculty {
     ABC("abc", 1), DEF("def", 2);
