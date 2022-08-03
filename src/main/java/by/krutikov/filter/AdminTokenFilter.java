@@ -14,19 +14,21 @@ import java.io.IOException;
 public class AdminTokenFilter implements Filter {
     static final Logger logger = LogManager.getLogger(AdminTokenFilter.class);
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
     }
 
+    @Override
     public void destroy() {
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest castedRequest = (HttpServletRequest)request;
+        HttpServletRequest castedRequest = (HttpServletRequest) request;
         String admin = castedRequest.getHeader("admin");
-        if (StringUtils.isNotBlank(admin)){
+        if (StringUtils.isNotBlank(admin)) {
             logger.info(String.format("Admin token found, %s", admin));
-        }else{
+        } else {
             logger.info("nothing found!");
         }
         chain.doFilter(request, response);

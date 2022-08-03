@@ -1,4 +1,4 @@
-package by.krutikov.entity;
+package by.krutikov.util;
 
 import by.krutikov.entity.Faculty;
 import by.krutikov.entity.Student;
