@@ -1,7 +1,10 @@
 package by.krutikov.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
+
 
 public interface CRUDRepository<K, T> {
     int DEFAULT_FIND_ALL_LIMIT = 10;

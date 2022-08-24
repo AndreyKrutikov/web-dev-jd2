@@ -5,6 +5,9 @@ import by.krutikov.repository.user.UserRepository;
 import by.krutikov.repository.user.impl.UserRepositoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -16,6 +19,8 @@ public class Main{
     static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
+
+
 //        User user = new User();
 //
 //        user.setName("alesya");
@@ -25,29 +30,31 @@ public class Main{
 //        user.setModified(new Timestamp(new Date().getTime()));
 //        user.setDeleted(false);
 //        user.setRating((byte) 1);
-        List <User> all;
-        UserRepository repository = new UserRepositoryImpl();
-        all = repository.findByFullName("alesya", "hiryat");
+//        List <User> all;
+//        UserRepository repository = new UserRepositoryImpl();
+//        all = repository.findByFullName("alesya", "hiryat");
+//
+//        System.out.println(all.isEmpty());
+//
+//        all.forEach(System.out::println);
+//        all.forEach(logger::info);
 
-        System.out.println(all.isEmpty());
+//        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+//                "application-context.xml");
+//
+//        User user = applicationContext.getBean("user", User.class);
+//
+//        System.out.println(user);
+//
+//        applicationContext.close();
 
-        all.forEach(System.out::println);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        context.scan("by.krutikov");
+        //context.refresh();
+        UserRepository repository = context.getBean("userRepositoryImpl", UserRepository.class);
 
-    }
-}
-
-class Main2 implements Runnable {
-    static final Logger logger = LogManager.getLogger(Main2.class);
-
-    @Override
-    public void run() {
-        for (int i = 0; i < 8; i++) {
-            logger.info("running 2");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                logger.error(e);
-            }
+        for (User u : repository.findAll()) {
+            System.out.println(u);
         }
     }
 }

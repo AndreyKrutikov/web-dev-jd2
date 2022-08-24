@@ -1,6 +1,6 @@
 package by.krutikov.entity;
 
-import by.krutikov.entity.Faculty;
+//import by.krutikov.entity.Faculty;
 
-public record Student(int id, String name, String address, int age, String phone, Faculty faculty) {
-}
+//public record Student(int id, String name, String address, int age, String phone, Faculty faculty) {
+//}

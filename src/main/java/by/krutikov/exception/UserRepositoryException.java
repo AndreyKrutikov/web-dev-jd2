@@ -1,6 +1,7 @@
 package by.krutikov.exception;
 
-public class UserRepositoryException extends RuntimeException {
+public class UserRepositoryException extends RuntimeException { //todo extends exception
+
     public UserRepositoryException() {
         super();
     }

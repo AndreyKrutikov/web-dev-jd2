@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    @ComponentScan -->
+    <context:component-scan base-package="by.krutikov"/>
+    <bean id = "date" class="java.util.Date">
+    </bean>
+
+    <bean id="timeStamp" class="java.sql.Timestamp">
+        <constructor-arg value="1111111111111"/>
+    </bean>
+    <bean id="user" class="by.krutikov.entity.User">
+        <property name="name" value="serezha"/>
+        <property name="surname" value="petrikov "/>
+        <property name="deleted" value="false"/>
+        <property name="rating" value="2"/>
+    </bean>
+
+    <bean id="userRepository" class="by.krutikov.repository.user.impl.UserRepositoryImpl"/>
+
+</beans>

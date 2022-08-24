@@ -7,6 +7,7 @@ import by.krutikov.util.DatabasePropertiesReader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,7 +34,7 @@ import static by.krutikov.repository.user.UserTableFields.MODIFIED;
 import static by.krutikov.repository.user.UserTableFields.IS_DELETED;
 import static by.krutikov.repository.user.UserTableFields.RATING;
 
-
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     static final Logger logger = LogManager.getLogger(UserRepositoryImpl.class);
     private static final String CREATE_NEW_USER_SQL = "insert into students_schema.users " +
