@@ -10,7 +10,7 @@ public enum Experience {
 
     private final String name;
     private final Integer id;
-    public static Experience getInstance(int id) {
+    public static Experience valueOf(int id) {
         for (Experience experience : Experience.values()) {
             if (experience.id == id) return experience;
         }

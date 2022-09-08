@@ -41,8 +41,8 @@ public class ProfileRowMapper implements RowMapper<Profile> {
         profile.setLatitude(resultSet.getDouble(LATITUDE));
         profile.setLongitude(resultSet.getDouble(LONGITUDE));
         profile.setPhoneNumber(resultSet.getString(PHONE_NUMBER));
-        profile.setInstrument(InstrumentType.getInstance(resultSet.getInt(INSTRUMENT_ID)));
-        profile.setExperience(Experience.getInstance(resultSet.getInt(EXPERIENCE_ID)));
+        profile.setInstrument(InstrumentType.valueOf(resultSet.getInt(INSTRUMENT_ID)));
+        profile.setExperience(Experience.valueOf(resultSet.getInt(EXPERIENCE_ID)));
         profile.setMedia(mediaRepository.findById(resultSet.getLong(MEDIA_ID)));
         profile.setDescription(resultSet.getString(DESCRIPTION));
         profile.setDateCreated(resultSet.getTimestamp(CREATED));

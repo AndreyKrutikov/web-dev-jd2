@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum InstrumentType {
     VOCALS("VOCALS", 1),
-    GUITAR("GUTTAR", 2),
+    GUITAR("GUITAR", 2),
     BASS("BASS", 3),
     DRUMS("DRUMS", 4),
     SYNTH("SYNTH", 5);
@@ -15,7 +15,7 @@ public enum InstrumentType {
     private final String name;
     private final Integer id;
 
-    public static InstrumentType getInstance(int id) {
+    public static InstrumentType valueOf(int id) {
         for (InstrumentType type : InstrumentType.values()) {
             if (type.id == id) return type;
         }

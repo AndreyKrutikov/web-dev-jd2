@@ -30,7 +30,7 @@ public class AccountRowMapper implements RowMapper<Account> {
         account.setDateCreated(resultSet.getTimestamp(CREATED));
         account.setDateModified(resultSet.getTimestamp(MODIFIED));
         account.setIsLocked(resultSet.getBoolean(IS_LOCKED));
-        account.setRole(Role.getInstance(resultSet.getInt(ROLE_ID)));
+        account.setRole(Role.valueOf(resultSet.getInt(ROLE_ID)));
 
         return account;
     }

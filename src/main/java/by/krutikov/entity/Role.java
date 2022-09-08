@@ -11,7 +11,7 @@ public enum Role {
     private final String name;
     private final Integer id;
 
-    public static Role getInstance(int id) {
+    public static Role valueOf(int id) {
         for (Role role : Role.values()) {
             if (role.id == id) return role;
         }
