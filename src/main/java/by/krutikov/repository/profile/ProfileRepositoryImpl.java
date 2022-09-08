@@ -18,9 +18,6 @@ import java.util.Optional;
 @Primary
 public class ProfileRepositoryImpl implements ProfileRepository {
     static final Logger logger = LogManager.getLogger(ProfileRepositoryImpl.class);
-    private final JdbcTemplate jdbcTemplate;
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private final ProfileRowMapper profileRowMapper;
 
     private static final String CREATE_NEW_PROFILE_SQL = "insert into bandhub.user_profiles " +
             "(account_id, displayed_name, location, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible ) " +
@@ -29,17 +26,17 @@ public class ProfileRepositoryImpl implements ProfileRepository {
             " as last_id;";
     private static final String FIND_PROFILE_BY_ID_SQL = "select account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible  from bandhub.user_profiles " +
             "where id=:id;";
-
-//    SELECT ST_Y(location::geometry) AS lat, ST_X(location::geometry) AS lon FROM my_table
     private static final String FIND_ALL_LIMIT_OFFSET_SQL = "select account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible from bandhub.user_profiles " +
             "order by id limit :limit offset :offset;";
     private static final String UPDATE_PROFILE_SQL = "update bandhub.user_profiles " +
             "set account_id=:accountId, displayed_name=:displayedName, location=ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography, cell_phone_number=:phoneNumber, instrument_id=:instrumentId, experience_id=:experienceId, media_id=:mediaId, description=:description, date_modified=:dateModified, is_visible=:isVisible " +
             "where id=:id;"; //we do not set creation date?
-
     private static final String DELETE_PROFILE_SQL = "delete from bandhub.user_profiles " +
             "where id=:id;";
 
+    private final JdbcTemplate jdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final ProfileRowMapper profileRowMapper;
 
     @Override
     public Profile findById(Long id) {
@@ -123,6 +120,7 @@ public class ProfileRepositoryImpl implements ProfileRepository {
         map.addValue("id", id);
 
         namedParameterJdbcTemplate.update(DELETE_PROFILE_SQL, map);
+
         return id;
     }
 }

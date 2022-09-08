@@ -1,4 +1,4 @@
-package by.krutikov.repository.jdbctemplate;
+package by.krutikov.repository.jdbctemplateuser;
 
 import by.krutikov.entity.User;
 import org.springframework.jdbc.core.RowMapper;

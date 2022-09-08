@@ -1,9 +1,6 @@
 package by.krutikov.repository.account;
 
 import by.krutikov.entity.Account;
-import by.krutikov.entity.User;
-import by.krutikov.repository.jdbctemplate.UserRowMapper;
-import by.krutikov.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +18,10 @@ import java.util.Optional;
 @Primary
 public class AccountRepositoryImpl implements AccountRepository {
     static final Logger logger = LogManager.getLogger(AccountRepositoryImpl.class);
+
     private static final String CREATE_NEW_ACCOUNT_SQL = "insert into bandhub.accounts " +
             "(login, password, email, date_created, date_modified, is_locked, role_id) " +
             "values (:login, :password, :email, :dateCreated, :dateModified, :isLocked, :roleId)";
-
     private static final String GET_LAST_ACCOUNT_ID_SQL = "select currval('bandhub.accounts_id_seq')" +
             " as last_id;";
     private static final String FIND_ACCOUNT_BY_ID_SQL = "select * from bandhub.accounts " +
@@ -34,16 +31,12 @@ public class AccountRepositoryImpl implements AccountRepository {
     private static final String UPDATE_ACCOUNT_SQL = "update bandhub.accounts " +
             "set login=:login, password=:password, email=:email, date_modified=:dateModified, is_locked=:isLocked, role_id=:roleId " +
             "where id=:id;"; //we do not set creation date, login, do we?
-
-    //    public static final String DELETE_ACCOUNT_ROLE_SQL = "delete from bandhub.accounts where id=:userId;";
-
     private static final String DELETE_ACCOUNT_SQL = "delete from bandhub.accounts " +
             "where id=:id;";
 
+
     private final JdbcTemplate jdbcTemplate;
-
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     private final AccountRowMapper accountRowMapper;
 
     @Override

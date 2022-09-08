@@ -1,15 +1,8 @@
 package by.krutikov;
 
 import by.krutikov.entity.Account;
-import by.krutikov.entity.User;
-import by.krutikov.repository.jdbctemplate.JdbcTemplateUserRepository;
-import by.krutikov.repository.user.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.sql.Date;
-import java.sql.Timestamp;
 
 
 public class Main {
