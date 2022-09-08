@@ -1,12 +1,13 @@
-package by.krutikov.repository.user.impl;
+package by.krutikov.repository.user;
 
 import by.krutikov.entity.User;
+import by.krutikov.exception.NoSuchEntityException;
 import by.krutikov.exception.UserRepositoryException;
-import by.krutikov.repository.user.UserRepository;
-import by.krutikov.util.DatabasePropertiesReader;
-import org.apache.commons.lang3.StringUtils;
+import by.krutikov.configuration.DatabaseProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -18,13 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.krutikov.util.DatabasePropertiesReader.DATABASE_LOGIN;
-import static by.krutikov.util.DatabasePropertiesReader.DATABASE_NAME;
-import static by.krutikov.util.DatabasePropertiesReader.DATABASE_PASSWORD;
-import static by.krutikov.util.DatabasePropertiesReader.DATABASE_PORT;
-import static by.krutikov.util.DatabasePropertiesReader.DATABASE_URL;
-import static by.krutikov.util.DatabasePropertiesReader.POSTGRES_DRIVER_NAME;
-
 import static by.krutikov.repository.user.UserTableFields.ID;
 import static by.krutikov.repository.user.UserTableFields.NAME;
 import static by.krutikov.repository.user.UserTableFields.SURNAME;
@@ -35,6 +29,7 @@ import static by.krutikov.repository.user.UserTableFields.IS_DELETED;
 import static by.krutikov.repository.user.UserTableFields.RATING;
 
 @Repository
+@RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
     static final Logger logger = LogManager.getLogger(UserRepositoryImpl.class);
     private static final String CREATE_NEW_USER_SQL = "insert into students_schema.users " +
@@ -44,19 +39,17 @@ public class UserRepositoryImpl implements UserRepository {
             " as last_id;";
     private static final String FIND_USER_BY_ID_SQL = "select * from students_schema.users " +
             "where id=?;";
-
     private static final String FIND_ALL_LIMIT_OFFSET_SQL = "select * from students_schema.users " +
             "order by id limit ? offset ?;";
-
     private static final String UPDATE_USER_SQL = "update students_schema.users " +
             "set user_name=?, surname=?, dob=?, date_created=?, date_modified=?, is_deleted=?, rating=? " +
             "where id=?;";
-
     private static final String DELETE_USER_SQL = "delete from students_schema.users " +
             "where id=?;";
-
     public static final String FIND_BY_NAME_SURNAME_SQL = "select * from students_schema.users " +
             "where user_name=? and surname=?;";
+    @Autowired
+    private final DatabaseProperties databaseProperties;
 
     @Override
     public User findById(Long id) {
@@ -166,7 +159,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setTimestamp(3, object.getDateOfBirth());
             statement.setTimestamp(4, object.getCreated());
             statement.setTimestamp(5, object.getModified());
-            statement.setBoolean(6, object.isDeleted());
+            statement.setBoolean(6, object.getIsDeleted());
             statement.setByte(7, object.getRating());
             statement.executeUpdate();
 
@@ -195,7 +188,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setTimestamp(3, object.getDateOfBirth());
             statement.setTimestamp(4, object.getCreated());
             statement.setTimestamp(5, object.getModified());
-            statement.setBoolean(6, object.isDeleted());
+            statement.setBoolean(6, object.getIsDeleted());
             statement.setByte(7, object.getRating());
             statement.setLong(8, object.getId());
             statement.executeUpdate();
@@ -233,22 +226,22 @@ public class UserRepositoryImpl implements UserRepository {
         user.setDateOfBirth(resultSet.getTimestamp(DATE_OF_BIRTH));
         user.setCreated(resultSet.getTimestamp(CREATED));
         user.setModified(resultSet.getTimestamp(MODIFIED));
-        user.setDeleted(resultSet.getBoolean(IS_DELETED));
+        user.setIsDeleted(resultSet.getBoolean(IS_DELETED));
         user.setRating(resultSet.getByte(RATING));
 
         return user;
     }
 
     private Connection getConnection() throws SQLException {
-        String driver = DatabasePropertiesReader.getProperty(POSTGRES_DRIVER_NAME);
+        String driver = databaseProperties.getDriverName();
 
-        String url = DatabasePropertiesReader.getProperty(DATABASE_URL);
-        String port = DatabasePropertiesReader.getProperty(DATABASE_PORT);
-        String name = DatabasePropertiesReader.getProperty(DATABASE_NAME);
+        String url = databaseProperties.getUrl();
+        String port = databaseProperties.getPort();
+        String name = databaseProperties.getName();
 
-        String dbURL = StringUtils.join(url, port, name);
-        String login = DatabasePropertiesReader.getProperty(DATABASE_LOGIN);
-        String password = DatabasePropertiesReader.getProperty(DATABASE_PASSWORD);
+        String dbURL = String.join("", url, port, name);
+        String login = databaseProperties.getLogin();
+        String password = databaseProperties.getPassword();
 
         try {
             Class.forName(driver);

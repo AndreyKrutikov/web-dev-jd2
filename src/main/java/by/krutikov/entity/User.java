@@ -23,7 +23,7 @@ public class User {
     private Timestamp dateOfBirth;
     private Timestamp created;
     private Timestamp modified;
-    private boolean isDeleted;
+    private Boolean isDeleted;
     private Byte rating;
 
     @Override

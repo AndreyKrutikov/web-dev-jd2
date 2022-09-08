@@ -21,6 +21,6 @@
         <property name="rating" value="2"/>
     </bean>
 
-    <bean id="userRepository" class="by.krutikov.repository.user.impl.UserRepositoryImpl"/>
+    <bean id="userRepository" class="by.krutikov.repository.user.UserRepositoryImpl"/>
 
 </beans>

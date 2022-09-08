@@ -1,21 +1,18 @@
 package by.krutikov;
 
+import by.krutikov.entity.Account;
 import by.krutikov.entity.User;
+import by.krutikov.repository.jdbctemplate.JdbcTemplateUserRepository;
 import by.krutikov.repository.user.UserRepository;
-import by.krutikov.repository.user.impl.UserRepositoryImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 
-public class Main{
+public class Main {
     static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) {
@@ -47,14 +44,31 @@ public class Main{
 //        System.out.println(user);
 //
 //        applicationContext.close();
+//
+//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+//        context.scan("by.krutikov");
+//        context.refresh();
+//        UserRepository repository = context.getBean("jdbcTemplateUserRepository", JdbcTemplateUserRepository.class);
+//
+////        User sasha = repository.create(User.builder()
+////                .name("alexander")
+////                .surname("krutikov")
+////                .dateOfBirth(new Timestamp(new Date(1988, 3, 13).getTime()))
+////                .created(new Timestamp(new Date(2020, 1, 1).getTime()))
+////                .modified(new Timestamp(new Date(2020,1,1).getTime()))
+////                .isDeleted(false)
+////                .rating((byte)1)
+////                .build());
+////        logger.info(sasha);
+//
+//        repository.findByFullName("sasha_modified", "krutikov").forEach(logger::info);
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.scan("by.krutikov");
-        //context.refresh();
-        UserRepository repository = context.getBean("userRepositoryImpl", UserRepository.class);
+        Account account = Account
+                .builder()
+                .build();
+        logger.info(account);
 
-        for (User u : repository.findAll()) {
-            System.out.println(u);
-        }
+
+
     }
 }

@@ -1,9 +1,6 @@
 package by.krutikov.util;
 
-import by.krutikov.entity.Faculty;
 //import by.krutikov.entity.Student;
-
-import java.util.List;
 
 public class StudentInit {
 //    public static final List<Student> getPreparedStudents = List.of(
