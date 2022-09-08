@@ -19,6 +19,6 @@ public enum InstrumentType {
         for (InstrumentType type : InstrumentType.values()) {
             if (type.id == id) return type;
         }
-        throw new IllegalArgumentException(String.format("no instrument by id %d found: ", id)); //return a default role?
+        throw new IllegalArgumentException(String.format("no instrument by id %d found: ", id)); //return a default value?
     }
 }

@@ -15,8 +15,6 @@ public interface AccountService {
 
     List<Account> findAll(int offset, int limit);
 
-    //List<Account> findByFullName(String name, String surname);
-
     Account create(Account object);
 
     Account update(Account object);
