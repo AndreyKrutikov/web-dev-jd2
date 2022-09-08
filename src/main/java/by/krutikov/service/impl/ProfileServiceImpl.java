@@ -1,10 +1,10 @@
 package by.krutikov.service.impl;
 
 import by.krutikov.entity.Profile;
-import by.krutikov.entity.Role;
 import by.krutikov.repository.profile.ProfileRepository;
 import by.krutikov.service.ProfileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@Primary
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
 

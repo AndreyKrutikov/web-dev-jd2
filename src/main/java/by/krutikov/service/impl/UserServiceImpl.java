@@ -4,6 +4,7 @@ import by.krutikov.entity.User;
 import by.krutikov.repository.user.UserRepository;
 import by.krutikov.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Primary
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

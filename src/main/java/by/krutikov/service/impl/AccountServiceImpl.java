@@ -5,6 +5,7 @@ import by.krutikov.entity.Role;
 import by.krutikov.repository.account.AccountRepository;
 import by.krutikov.service.AccountService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Primary
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 

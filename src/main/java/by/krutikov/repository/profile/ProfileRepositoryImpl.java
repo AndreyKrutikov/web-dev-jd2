@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 @Primary
+//TODO check queries and create/update methods for latitude/longitude params order
 public class ProfileRepositoryImpl implements ProfileRepository {
     static final Logger logger = LogManager.getLogger(ProfileRepositoryImpl.class);
 
