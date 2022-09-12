@@ -2,9 +2,7 @@ package by.krutikov.repository.account;
 
 import by.krutikov.entity.Account;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,10 +13,8 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Primary
 public class AccountRepositoryImpl implements AccountRepository {
-    static final Logger logger = LogManager.getLogger(AccountRepositoryImpl.class);
-
+    static Logger log = Logger.getLogger(AccountRepositoryImpl.class);
     private static final String CREATE_NEW_ACCOUNT_SQL = "insert into bandhub.accounts " +
             "(login, password, email, date_created, date_modified, is_locked, role_id) " +
             "values (:login, :password, :email, :dateCreated, :dateModified, :isLocked, :roleId)";
@@ -26,7 +22,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             " as last_id;";
     private static final String FIND_ACCOUNT_BY_ID_SQL = "select * from bandhub.accounts " +
             "where id=:id;";
-    private static final String FIND_ALL_LIMIT_OFFSET_SQL = "select * from bandhub.accounts " +
+    private static final String FIND_ALL_OFFSET_LIMIT_SQL = "select * from bandhub.accounts " +
             "order by id limit :limit offset :offset;";
     private static final String UPDATE_ACCOUNT_SQL = "update bandhub.accounts " +
             "set login=:login, password=:password, email=:email, date_modified=:dateModified, is_locked=:isLocked, role_id=:roleId " +
@@ -60,10 +56,10 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public List<Account> findAll(int offset, int limit) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("limit", limit);
         map.addValue("offset", offset);
+        map.addValue("limit", limit);
 
-        return namedParameterJdbcTemplate.query(FIND_ALL_LIMIT_OFFSET_SQL, map, accountRowMapper);
+        return namedParameterJdbcTemplate.query(FIND_ALL_OFFSET_LIMIT_SQL, map, accountRowMapper);
     }
 
     @Override

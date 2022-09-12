@@ -4,17 +4,15 @@ import by.krutikov.entity.Profile;
 import by.krutikov.repository.profile.ProfileRepository;
 import by.krutikov.service.ProfileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 @RequiredArgsConstructor
-@Primary
 public class ProfileServiceImpl implements ProfileService {
     private final ProfileRepository profileRepository;
 
@@ -25,7 +23,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Optional<Profile> findOne(Long id) {
-        return Optional.of(findById(id));
+        return profileRepository.findOne(id);
     }
 
     @Override

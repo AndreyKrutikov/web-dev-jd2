@@ -1,13 +1,12 @@
 package by.krutikov.controller;
 
 import by.krutikov.controller.requests.AccountCreateRequest;
-import by.krutikov.controller.requests.AccountFindLimitOffsetRequest;
+import by.krutikov.controller.requests.AccountFindOffsetLimitRequest;
 import by.krutikov.controller.requests.AccountUpdateRequest;
 import by.krutikov.entity.Account;
 import by.krutikov.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/accounts") //localhost:8080/test-project/accounts
 public class AccountController {
-    static final Logger log = LogManager.getLogger(AccountController.class);
+    static final Logger log = Logger.getLogger(AccountController.class);
     private final AccountService accountService;
 
     @GetMapping
@@ -39,7 +38,7 @@ public class AccountController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<Object> findAllLimitOffset(@ModelAttribute AccountFindLimitOffsetRequest findLimitOffsetRequest) {
+    public ResponseEntity<Object> findAllOffsetLimit(@ModelAttribute AccountFindOffsetLimitRequest findLimitOffsetRequest) {
         int verifiedOffset = Integer.parseInt(findLimitOffsetRequest.getOffset());
         int verifiedLimit = Integer.parseInt(findLimitOffsetRequest.getLimit());
 

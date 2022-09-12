@@ -1,7 +1,7 @@
 package by.krutikov.util;
 
 import java.util.ResourceBundle;
-
+@Deprecated
 public class DatabasePropertiesReader {
 
     public static final String POSTGRES_DRIVER_NAME = "POSTGRES_DRIVER_NAME";

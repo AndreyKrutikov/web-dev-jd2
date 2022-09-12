@@ -2,9 +2,7 @@ package by.krutikov.repository.media;
 
 import by.krutikov.entity.Media;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,17 +13,16 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Primary
 public class MediaRepositoryImpl implements MediaRepository {
-    static final Logger logger = LogManager.getLogger(MediaRepositoryImpl.class);
+    static Logger log = Logger.getLogger(MediaRepositoryImpl.class);
 
     private static final String CREATE_NEW_MEDIA_SQL = "insert into bandhub.media (photo_url , demo_url) " +
             "values (:photoUrl, :demoUrl);";
     private static final String GET_LAST_MEDIA_ID_SQL = "select currval('bandhub.media_id_seq')" +
             " as last_id;";
     private static final String FIND_MEDIA_BY_ID_SQL = "select * from bandhub.media " +
-            "where id=?;";
-    private static final String FIND_ALL_LIMIT_OFFSET_SQL = "select * from bandhub.media " +
+            "where id=:id;";
+    private static final String FIND_ALL_OFFSET_LIMIT_SQL = "select * from bandhub.media " +
             "order by id limit :limit offset :offset;";
     private static final String UPDATE_MEDIA_SQL = "update bandhub.media " +
             "set photo_url=:photoUrl, demo_url=:demoUrl" +
@@ -59,10 +56,10 @@ public class MediaRepositoryImpl implements MediaRepository {
     @Override
     public List<Media> findAll(int offset, int limit) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("limit", limit);
         map.addValue("offset", offset);
+        map.addValue("limit", limit);
 
-        return namedParameterJdbcTemplate.query(FIND_ALL_LIMIT_OFFSET_SQL, map, mediaRowMapper);
+        return namedParameterJdbcTemplate.query(FIND_ALL_OFFSET_LIMIT_SQL, map, mediaRowMapper);
     }
 
     @Override

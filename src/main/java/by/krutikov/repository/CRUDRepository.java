@@ -1,14 +1,11 @@
 package by.krutikov.repository;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 
-
 public interface CRUDRepository<K, T> {
-    int DEFAULT_FIND_ALL_LIMIT = 50;
     int DEFAULT_FIND_ALL_OFFSET = 0;
+    int DEFAULT_FIND_ALL_LIMIT = 50;
 
     // TODO: 10.08.22 add exceptions to methods
     T findById(Long id);

@@ -2,9 +2,7 @@ package by.krutikov.repository.profile;
 
 import by.krutikov.entity.Profile;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.context.annotation.Primary;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,20 +13,19 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-@Primary
 //TODO check queries and create/update methods for latitude/longitude params order
 public class ProfileRepositoryImpl implements ProfileRepository {
-    static final Logger logger = LogManager.getLogger(ProfileRepositoryImpl.class);
+    static final Logger log = Logger.getLogger(ProfileRepositoryImpl.class);
 
     private static final String CREATE_NEW_PROFILE_SQL = "insert into bandhub.user_profiles " +
             "(account_id, displayed_name, location, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible ) " +
             "values (:accountId, :displayedName, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography, :phoneNumber, :instrumentId, :experienceId, :mediaId, :description, :dateCreated, :dateModified, :isVisible);";
     private static final String GET_LAST_PROFILE_ID_SQL = "select currval('bandhub.user_profiles_id_seq')" +
             " as last_id;";
-    private static final String FIND_PROFILE_BY_ID_SQL = "select account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible  from bandhub.user_profiles " +
+    private static final String FIND_PROFILE_BY_ID_SQL = "select id, account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible  from bandhub.user_profiles " +
             "where id=:id;";
-    private static final String FIND_ALL_LIMIT_OFFSET_SQL = "select account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible from bandhub.user_profiles " +
-            "order by id limit :limit offset :offset;";
+    private static final String FIND_ALL_OFFSET_LIMIT_SQL = "select id, account_id, displayed_name, ST_X(location::geometry) AS latitude, ST_Y(location::geometry) AS longitude, cell_phone_number, instrument_id, experience_id, media_id, description, date_created, date_modified, is_visible from bandhub.user_profiles " +
+            "order by id limit :limit offset :offset;"; //  WTF????
     private static final String UPDATE_PROFILE_SQL = "update bandhub.user_profiles " +
             "set account_id=:accountId, displayed_name=:displayedName, location=ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)::geography, cell_phone_number=:phoneNumber, instrument_id=:instrumentId, experience_id=:experienceId, media_id=:mediaId, description=:description, date_modified=:dateModified, is_visible=:isVisible " +
             "where id=:id;"; //we do not set creation date?
@@ -37,6 +34,7 @@ public class ProfileRepositoryImpl implements ProfileRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     private final ProfileRowMapper profileRowMapper;
 
     @Override
@@ -60,10 +58,10 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     @Override
     public List<Profile> findAll(int offset, int limit) {
         MapSqlParameterSource map = new MapSqlParameterSource();
-        map.addValue("limit", limit);
         map.addValue("offset", offset);
+        map.addValue("limit", limit);
 
-        return namedParameterJdbcTemplate.query(FIND_ALL_LIMIT_OFFSET_SQL, map, profileRowMapper);
+        return namedParameterJdbcTemplate.query(FIND_ALL_OFFSET_LIMIT_SQL, map, profileRowMapper);
     }
 
     @Override

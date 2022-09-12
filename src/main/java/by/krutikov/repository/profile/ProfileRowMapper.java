@@ -6,29 +6,31 @@ import by.krutikov.entity.Profile;
 import by.krutikov.repository.account.AccountRepository;
 import by.krutikov.repository.media.MediaRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static by.krutikov.repository.profile.ProfileTableFields.ACCOUNT_ID;
 import static by.krutikov.repository.profile.ProfileTableFields.CREATED;
 import static by.krutikov.repository.profile.ProfileTableFields.DESCRIPTION;
+import static by.krutikov.repository.profile.ProfileTableFields.DISPLAYED_NAME;
 import static by.krutikov.repository.profile.ProfileTableFields.EXPERIENCE_ID;
+import static by.krutikov.repository.profile.ProfileTableFields.ID;
 import static by.krutikov.repository.profile.ProfileTableFields.INSTRUMENT_ID;
 import static by.krutikov.repository.profile.ProfileTableFields.IS_VISIBLE;
 import static by.krutikov.repository.profile.ProfileTableFields.LATITUDE;
 import static by.krutikov.repository.profile.ProfileTableFields.LONGITUDE;
 import static by.krutikov.repository.profile.ProfileTableFields.MEDIA_ID;
 import static by.krutikov.repository.profile.ProfileTableFields.MODIFIED;
-import static by.krutikov.repository.profile.ProfileTableFields.ACCOUNT_ID;
-import static by.krutikov.repository.profile.ProfileTableFields.DISPLAYED_NAME;
-import static by.krutikov.repository.profile.ProfileTableFields.ID;
 import static by.krutikov.repository.profile.ProfileTableFields.PHONE_NUMBER;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 @Component
 @RequiredArgsConstructor
 public class ProfileRowMapper implements RowMapper<Profile> {
+    static Logger log = Logger.getLogger(ProfileRowMapper.class);
     private final AccountRepository accountRepository;
     private final MediaRepository mediaRepository;
 

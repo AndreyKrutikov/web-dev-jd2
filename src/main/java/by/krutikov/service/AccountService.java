@@ -1,7 +1,6 @@
 package by.krutikov.service;
 
 import by.krutikov.entity.Account;
-import by.krutikov.entity.User;
 
 import java.util.List;
 import java.util.Optional;

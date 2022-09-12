@@ -3,7 +3,7 @@ package by.krutikov.controller.requests;
 import lombok.Data;
 
 @Data
-public class AccountFindLimitOffsetRequest {
-    private String limit;
+public class ProfileFindOffsetLimitRequest {
     private String offset;
+    private String limit;
 }

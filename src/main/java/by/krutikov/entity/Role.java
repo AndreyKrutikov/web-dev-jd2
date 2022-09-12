@@ -15,6 +15,6 @@ public enum Role {
         for (Role role : Role.values()) {
             if (role.id == id) return role;
         }
-        throw new IllegalArgumentException(String.format("no role by id %d found: ", id)); //return a default role?
+        throw new IllegalArgumentException(String.format("No role by id %d found: ", id)); //return a default role?
     }
 }

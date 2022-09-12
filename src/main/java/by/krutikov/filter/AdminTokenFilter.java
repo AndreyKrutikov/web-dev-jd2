@@ -1,19 +1,23 @@
 package by.krutikov.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
 
-import javax.servlet.*;
-import javax.servlet.annotation.*;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 
 @WebFilter(filterName = "AdminTokenFilter")
 public class AdminTokenFilter implements Filter {
-    static final Logger logger = LogManager.getLogger(AdminTokenFilter.class);
-
+    static Logger log = Logger.getLogger(AdminTokenFilter.class);
     @Override
     public void init(FilterConfig config) throws ServletException {
     }
@@ -27,9 +31,9 @@ public class AdminTokenFilter implements Filter {
         HttpServletRequest castedRequest = (HttpServletRequest) request;
         String admin = castedRequest.getHeader("admin");
         if (StringUtils.isNotBlank(admin)) {
-            logger.info(String.format("Admin token found, %s", admin));
+            log.info(String.format("Admin token found, %s", admin));
         } else {
-            logger.info("nothing found!");
+            log.info("nothing found!");
         }
         chain.doFilter(request, response);
     }

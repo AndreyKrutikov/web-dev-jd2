@@ -1,7 +1,7 @@
 package by.krutikov.util;
 
 //import by.krutikov.entity.Student;
-
+@Deprecated
 public class StudentInit {
 //    public static final List<Student> getPreparedStudents = List.of(
 //            new Student(1, "vasya", "minsk", 18, "1234567", Faculty.ABC),
