@@ -5,6 +5,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
+@Deprecated
 public class UserCreateRequest {
     private String name;
     private String surname;

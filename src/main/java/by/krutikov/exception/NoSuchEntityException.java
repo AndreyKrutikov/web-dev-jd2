@@ -2,11 +2,11 @@ package by.krutikov.exception;
 
 public class NoSuchEntityException extends RuntimeException {
 
-    private String customMessage;
+    private final String customMessage;
 
-    private Integer errorCode;
+    private final Integer errorCode;
 
-    private String exceptionId;
+    private final String exceptionId;
 
     public NoSuchEntityException(String customMessage, Integer errorCode, String exceptionId) {
         this.customMessage = customMessage;

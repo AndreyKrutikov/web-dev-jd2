@@ -1,12 +1,10 @@
 package by.krutikov.controller;
 
 import by.krutikov.controller.requests.ProfileFindOffsetLimitRequest;
-import by.krutikov.entity.Account;
 import by.krutikov.entity.Experience;
 import by.krutikov.entity.InstrumentType;
 import by.krutikov.entity.Media;
 import by.krutikov.entity.Profile;
-import by.krutikov.entity.Role;
 import by.krutikov.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,98 +28,10 @@ import java.util.Map;
 public class ProfileController {
     private final ProfileService profileService;
 
-    @GetMapping("/test")
-    public ResponseEntity<Object> test() {
-        Profile profile1 = Profile
-                .builder()
-                .id(1L)
-                .account(null)
-                .media(Media.builder()
-                        .id(2L)
-                        .photoUrl("aDSASD_URL")
-                        .demoUrl("ssffaefc")
-                        .build())
-                .isVisible(true)
-                .dateCreated(new Timestamp(new Date().getTime()))
-                .dateModified(new Timestamp(new Date().getTime()))
-                .description("descijqfjqicic iueidqweiufdiufnipf")
-                .latitude(8.09898)
-                .longitude(0.544390)
-                .displayedName("Profile sdasdasmkml")
-                .experience(Experience.AMATEUR)
-                .instrument(InstrumentType.BASS)
-                .phoneNumber("5678201")
-                .build();
-
-        Profile profile2 = Profile
-                .builder()
-                .id(1L)
-                .account(null)
-                .media(Media.builder()
-                        .id(1L)
-                        .photoUrl("aDSASD_URL")
-                        .demoUrl("adsfpok")
-                        .build())
-                .isVisible(true)
-                .dateCreated(new Timestamp(new Date().getTime()))
-                .dateModified(new Timestamp(new Date().getTime()))
-                .description("descijqfjqicic iueidqweiufdiufnipf")
-                .latitude(-54.578)
-                .longitude(11.3)
-                .displayedName("Profile sdasdasmkml")
-                .experience(Experience.PRO)
-                .instrument(InstrumentType.DRUMS)
-                .phoneNumber("0099000")
-                .build();
-
-        Profile profile3 = Profile
-                .builder()
-                .id(1L)
-                .account(null)
-                .media(null)
-                .isVisible(true)
-                .dateCreated(new Timestamp(new Date().getTime()))
-                .dateModified(new Timestamp(new Date().getTime()))
-                .description("desciqicic iueidqweiufdiufnipf")
-                .latitude(8.09898)
-                .longitude(0.544390)
-                .displayedName("Profile sdasdasmkml")
-                .experience(Experience.BEGINNER)
-                .instrument(InstrumentType.VOCALS)
-                .phoneNumber("56998201")
-                .build();
-
-        Profile profile4 = Profile
-                .builder()
-                .id(1L)
-                .account(null)
-                .media(null)
-                .isVisible(true)
-                .dateCreated(new Timestamp(new Date().getTime()))
-                .dateModified(new Timestamp(new Date().getTime()))
-                .description("descijqfjqicic iueidqweiufdiufnipf")
-                .latitude(8.09898)
-                .longitude(90.75)
-                .displayedName("fffdsafasdf")
-                .experience(Experience.AMATEUR)
-                .instrument(InstrumentType.BASS)
-                .phoneNumber("5678201")
-                .build();
-
-        List<Profile> profiles = new ArrayList<>();
-        profiles.add(profile1);
-        profiles.add(profile2);
-        profiles.add(profile3);
-        profiles.add(profile4);
-
-        return new ResponseEntity<>(Collections.singletonMap("testing: ", profiles), HttpStatus.OK);
-    }
-
-
     @GetMapping
     //@ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> findAllProfiles() {
-        return new ResponseEntity<>(Collections.singletonMap("all profiles: ", profileService.findAll()), HttpStatus.OK);
+        return new ResponseEntity<>(Collections.singletonMap("all profiles", profileService.findAll()), HttpStatus.OK);
     }
 
     @GetMapping("/find")

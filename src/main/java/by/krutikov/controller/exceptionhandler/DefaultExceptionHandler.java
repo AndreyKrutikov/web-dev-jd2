@@ -24,6 +24,6 @@ public class DefaultExceptionHandler {
                 .e(e.getClass().toString()) //todo check it
                 .build();
 
-        return new ResponseEntity<>(Collections.singletonMap("error", error), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(Collections.singletonMap("not found", error), HttpStatus.NOT_FOUND);
     }
 }

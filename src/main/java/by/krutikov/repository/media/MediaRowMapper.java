@@ -1,7 +1,6 @@
 package by.krutikov.repository.media;
 
 import by.krutikov.entity.Media;
-import by.krutikov.repository.profile.ProfileRowMapper;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
