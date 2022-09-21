@@ -51,9 +51,11 @@ public class AccountServiceImpl implements AccountService {
         object.setDateModified(new Timestamp(new Date().getTime()));
         return accountRepository.update(object);
     }
-
+     // 1) authowire profileRepository
     @Override
     public Long delete(Long id) {
+
+        //2) profilerepository::delete  where profiles.accountId = this.id
 
         return accountRepository.delete(id);
     }
